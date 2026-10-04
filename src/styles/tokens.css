@@ -1,0 +1,28 @@
+:root {
+  /* Backgrounds & Voids */
+  --color-bg-base: #08090B;
+  --color-bg-subtle: #0F1115;
+  --color-bg-elevated: #16181F;
+  --color-bg-glass: rgba(15, 17, 21, 0.75);
+
+  /* Typography / Text */
+  --color-text-primary: #F3F4F6;
+  --color-text-secondary: #9CA3AF;
+  --color-text-muted: #6B7280;
+  --color-text-dim: #4B5563;
+
+  /* Metallic Accents */
+  --color-accent-titanium: #D1D5DB;
+  --color-accent-champagne: #E5C396;
+  --color-accent-amber: #F59E0B;
+  --color-accent-cyan: #38BDF8;
+
+  /* Borders & Dividers */
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.22);
+  --color-border-metallic: rgba(229, 195, 150, 0.35);
+
+  /* Lighting & Glows */
+  --glow-ambient: radial-gradient(circle at 50% 50%, rgba(229, 195, 150, 0.08) 0%, transparent 70%);
+  --glow-spotlight: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.12) 0%, transparent 60%);
+}

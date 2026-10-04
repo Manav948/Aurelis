@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/index.ts","./src/data/index.ts","./src/hooks/index.ts","./src/hooks/usegsapcontext.ts","./src/hooks/usereducedmotion.ts","./src/lib/gsap.ts","./src/lib/utils.ts","./src/sections/index.ts"],"version":"5.9.3"}
