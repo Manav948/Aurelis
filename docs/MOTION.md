@@ -1,96 +1,89 @@
-# Motion & Animation Architecture — Aurelis
+# Motion Design & Interaction Architecture — Aurelis
 
-## 1. Core Animation Principles
-Motion in Aurelis is treated as physical matter with mass, friction, and mechanical precision. We avoid bouncy cartoon physics and spring overshoot. Instead, motion communicates **weight, acoustic dampening, and surgical engineering**:
-
-1. **Inertia & Weight**: Easing curves feature gradual acceleration and weighted deceleration (e.g., `power3.out`, `expo.out`, `cubic-bezier(0.16, 1, 0.3, 1)`).
-2. **Deterministic Scrollytelling**: Animations tied to scroll velocity must feel connected 1:1 to finger movement without jarring lag or elastic snapback.
-3. **Intentional Hierarchy**: Foreground content leads; background ambience follows with secondary parallax dampening.
-4. **Spatial Continuity**: Elements do not disappear abruptly; they morph, scale into depth, or fade through focal blur transitions.
-
----
-
-## 2. Scroll-Driven Interactions & GSAP ScrollTrigger
-
-### 2.1 Centralized Scroll Choreography
-All scroll-driven timelines are registered through a unified GSAP context using `ScrollTrigger.create()` or `gsap.timeline({ scrollTrigger: { ... } })`.
-
-Key configurations:
-- **`scrub: 1` or `scrub: 0.8`**: Smooth smoothing factor that buffers micro-stutters in mouse wheels while feeling immediate on trackpads.
-- **`anticipatePin: 1`**: Prevents visual jitter when pinned elements lock into viewport position.
-- **`fastScrollEnd: true`**: Ensures timelines catch up cleanly if a user flings the scroll quickly.
+> **Document Status**: Grounded in visual analysis of `/reference/design/`.  
+> **Motion Reality Check**: The `/reference/motion/` directory currently contains no video files. Therefore, **all motion specifications below are [PROPOSED FOR AURELIS / INFERRED FROM STATIC VISUAL CUES]**.  
+> Proposed animations are categorized by priority:
+> - **Priority A = Core Experience** (Essential for layout stability, navigation flow, and baseline interactivity)
+> - **Priority B = Enhancement** (Elevates visual storytelling and perceived product polish)
+> - **Priority C = Optional Polish** (Delightful micro-interactions, secondary to performance)  
+> All numerical values, durations, and easing curves remain **tunable implementation recommendations**.
 
 ---
 
-## 3. Pinned Sections & Mechanical Exploded View
-
-### 3.1 Exploded Hardware Breakdown (Stage Section)
-- **Pinning Strategy**: The section pins for `300vh` to `400vh` of scroll distance.
-- **Phase 1 (0% - 25% Scroll)**: Headphone shell separates along the Z-axis and X-axis. Outer titanium acoustic chamber pulls outward.
-- **Phase 2 (25% - 50% Scroll)**: Custom 50mm Planar Magnetic diaphragm exposes its micro-etched traces; magnetic arrays slide apart.
-- **Phase 3 (50% - 75% Scroll)**: Internal acoustic damping chamber and digital signal processing board rotate 15 degrees into profile view.
-- **Phase 4 (75% - 100% Scroll)**: Memory foam cushion with magnetic lock uncouples; technical callouts animate into focus with staggered lines.
-
-### 3.2 Acoustic Curve Pinned Comparison
-- Pinned for `200vh`.
-- Real-time SVG path morphing from standard baseline consumer curve into the Aurelis Reference Soundstage curve.
+## 1. Motion Principles & Intent [PROPOSED]
+1. **Physical Engineering Feel**: Motion should feel weighted, dampened, and mechanical—reflecting machined titanium, calibrated hinges, and acoustic isolation.
+2. **Deterministic Scrollytelling**: Scroll-driven animations must map naturally to user movement without loose or rubbery lag.
+3. **Intentional Feedback**: Micro-interactions (hovering pins, clicking swatches, expanding accordion items) provide immediate, tactile visual confirmation.
 
 ---
 
-## 4. Parallax & Scrub Animations
-- **Multi-Plane Parallax**:
-  - Background grid and ambient lights: `yPercent: -15` (slowest plane).
-  - Primary hardware showcases: `yPercent: 0` (reference plane).
-  - Floating typography & spec callouts: `yPercent: 25` (fast plane).
-- **Rotation Scrub**: Subtle 3D tilt (`rotationY`, `rotationX`) linked to scroll velocity to give realistic physical presence.
+## 2. Global Scroll Choreography
+
+### 2.1 Dark-to-Light Canvas Transition
+- **Priority**: **A (Core Experience)**
+- **Visual Cue**: The static reference displays Section 1 (Hero) on a dark charcoal void that transitions via gradient into Section 2's light off-white background.
+- **Motion Intent**: As the user scrolls past the Hero, interpolate the global background tone smoothly from dark charcoal (`--color-void-hero`) to clean off-white (`--color-canvas-light`).
+- **Tunable Implementation**: Lightweight GSAP ScrollTrigger tween with `scrub: true` across the Hero exit boundary (`start: "bottom 90%"`, `end: "bottom 40%"`).
 
 ---
 
-## 5. Image & Canvas Transitions
-- **Reveal Masks**: Clip-path polygon reveals (`polygon(0 0, 100% 0, 100% 100%, 0 100%)`) combined with subtle image scale down from `1.15` to `1.0`.
-- **Depth of Field Blur**: When switching material finishes or exploded states, inactive layers receive a subtle blur (`filter: blur(8px)`) and opacity reduction to focus attention on active components.
+## 3. Section-by-Section Interaction & Priority Breakdown
+
+### Section 0: Global Header
+- **Load Entrance**: Priority B (Enhancement) — Subtle slide-down or fade-in once assets are mounted.
+- **Sticky Blur Transition**: Priority A (Core Experience) — When scrolling beyond the hero, background transitions to a frosted glass surface (`backdrop-filter: blur(16px)`).
+- **Link Hover Underline**: Priority C (Optional Polish) — Subtle horizontal underline expand on link hover.
+
+### Section 1: Hero Section
+- **Headline Entrance**: Priority B (Enhancement) — Staggered line reveal from bottom to top with overflow masking.
+- **Product Entrance**: Priority B (Enhancement) — Gentle upward float and scale settlement (`scale: 1.05 -> 1.0`, `opacity: 0 -> 1`) on page load.
+- **Colorway Switcher**: Priority A (Core Experience) — Clicking a circular thumbnail cross-fades the headphone image texture smoothly.
+- **Ambient Cursor Parallax (Desktop)**: Priority C (Optional Polish) — Constrained tilt (`±3°`) following mouse coordinates. Must disable if frame rate drops below 55 FPS.
+
+### Section 2: Feature Showcase ("Powerful Sound Anytime Anywhere")
+- **Accordion Interaction**: Priority A (Core Experience) — Clicking an accordion row expands its descriptive text with smooth height interpolation, while gracefully collapsing the open item.
+- **Floating Product Badge Float**: Priority C (Optional Polish) — Gentle ambient vertical hover bob on the earbud tag pill to reinforce depth.
+
+### Section 3: Symmetrical Ergonomics & Hotspots ("Designed for Comfort")
+- **Hotspot Marker Pulse**: Priority B (Enhancement) — Gentle continuous radial halo pulse expanding outward from each of the 6 white marker dots to signal interactivity.
+- **Hotspot Tooltip Expansion**: Priority A (Core Experience) — Hovering or tapping a hotspot dot reveals a clean technical callout card detailing component engineering.
+- **Accessory View Switch**: Priority A (Core Experience) — Clicking any of the 3 bottom thumbnails transitions the center product visual between the full headphone, travel case, and cable/adapter.
+
+### Section 4: Collection Carousel ("Elite Tech Collection")
+- **Responsive Slider / Carousel**: Priority A (Core Experience) — Clean horizontal slider track updating the bottom slider indicator dynamically.
+  - Desktop: Wheel-scrubbed or mouse-draggable track.
+  - Mobile: Native touch-snap overflow (`scroll-snap-type: x mandatory`).
+- **Card Hover Elevation**: Priority B (Enhancement) — Hovering a card lifts the container slightly (`translateY: -6px`) with a softened shadow deepen.
+- **Lime Action Button Reveal**: Priority B (Enhancement) — Circular lime arrow button reveals or scales up on card hover.
+
+### Section 5: Editorial Quote & Lifestyle Spotlight
+- **Quote Transition**: Priority A (Core Experience) — Clicking the previous (`←`) or next (`→`) circular arrow buttons cycles the displayed testimonial and cross-fades the associated portrait photograph.
+- **Split-Text Stagger**: Priority C (Optional Polish) — Staggered character or word fade on quote change.
+
+### Section 6: Brand Mission & Partner Grid ("About Us")
+- **Scroll Scrub Illuminator**: Priority C (Optional Polish) — Subtle opacity scrub across the statement text as the user scrolls through the section.
+- **Partner Card Entrance**: Priority B (Enhancement) — Soft upward staggered float (`y: 20 -> 0`) when entering the viewport.
+
+### Section 7: Editorial Stories ("BLOG")
+- **Card Entrance**: Priority B (Enhancement) — Staggered entrance as the blog grid enters the viewport.
+- **Image Zoom on Hover**: Priority B (Enhancement) — Subtle interior image scale (`scale: 1.0 -> 1.05`) within the rounded mask.
+- **Link Arrow Nudge**: Priority C (Optional Polish) — Trailing arrow on `"READ MORE"` slides forward by `4px` on hover.
+
+### Section 8: Master Footer
+- **Footer Fade-In**: Priority B (Enhancement) — Clean opacity fade as user reaches the final page viewport.
 
 ---
 
-## 6. Typography Animation
-- **Split Line / Character Reveals**: Headlines enter using staggered mask clipping (`overflow: hidden` line wrappers) with `y: '100%'` to `y: '0%'`, duration `1.1s`, ease `power4.out`.
-- **Monospace Telemetry Scramble**: Number tickers and frequency values scrub from `00.0` to target values (e.g., `20Hz - 48,000Hz`, `0.02% THD`) via GSAP counter proxies.
+## 4. Mobile Adaptations & Performance Invariants [PRIORITY A]
+- Viewports `< 768px` disable multi-axis mouse tracking to save CPU/battery.
+- Complex pinned horizontal scroll tracks fall back to native touch carousels (`scroll-snap-type: x mandatory`).
+- Animations animate exclusively `transform` and `opacity` properties to prevent costly layout reflows.
 
 ---
 
-## 7. Horizontal Scrolling
-- **Specifications & Gallery Track**:
-  - Pinned container (`pin: true`) with horizontal translation `xPercent: -100 * (slidesCount - 1)`.
-  - Scrub duration scaled proportionally to track length for consistent traversal velocity.
-  - Interactive progress indicator tracking horizontal travel percentage.
-
----
-
-## 8. Hover & Pointer Interactions
-- **Magnetic Buttons**: Elements dynamically offset towards mouse coordinates within a 60px proximity radius using a dampened GSAP quickTo tween.
-- **Interactive Lighting Spot**: Mouse position dynamically updates CSS radial gradient position for real-time metallic reflections.
-- **Card 3D Tilt**: Micro-rotation (`max 8deg`) on mouse move with smooth reset on mouse leave.
-
----
-
-## 9. Mobile Motion Behavior (Responsive Degradation)
-- **Viewport < 768px Adaptations**:
-  - Reduce total pinned scroll distances by 50% to prevent scroll fatigue.
-  - Disable heavy multi-axis 3D mouse tracking.
-  - Convert horizontal pinned tracks into native CSS touch snap carousels when screen width is constrained.
-  - Limit heavy blur filters to improve battery life and prevent GPU thermal throttling.
-
----
-
-## 10. Accessibility & Reduced Motion
-Strict adherence to `window.matchMedia('(prefers-reduced-motion: reduce)')`:
-```typescript
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-if (prefersReducedMotion) {
-  // Disable scrub and pin animations
-  // Switch to immediate opacity transitions or static views
-  // Disable auto-playing or continuous ambient loops
-}
-```
-All critical information remains fully accessible without motion dependencies.
+## 5. Accessibility & Reduced Motion (`prefers-reduced-motion`) [PRIORITY A - MANDATORY]
+In compliance with `prefers-reduced-motion: reduce`:
+- Disable all continuous scrub animations and ambient parallax.
+- Hotspot pulsing halos remain static, visible indicators.
+- Carousel and quote transitions switch immediately or with simple opacity fades (`duration: 0.2s max`).
+- Accordion content remains immediately toggleable without animation delay.
