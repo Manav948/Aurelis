@@ -1,15 +1,20 @@
-import { useState } from 'react';
-import { Check } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight } from 'lucide-react';
 
-type Colorway = 'obsidian' | 'titanium';
+export type HeroColorway = 'obsidian' | 'titanium';
 
-const COLORWAYS: { id: Colorway; name: string; finish: string }[] = [
+interface HeroProductProps {
+  readonly activeColorway: HeroColorway;
+  readonly onColorwayChange: (colorway: HeroColorway) => void;
+  readonly onNext: () => void;
+  readonly onPrevious: () => void;
+}
+
+const COLORWAYS: { id: HeroColorway; name: string; finish: string }[] = [
   { id: 'obsidian', name: 'Obsidian Black', finish: '#24262c' },
   { id: 'titanium', name: 'Brushed Titanium', finish: '#c6c9cd' },
 ];
 
-export function HeroProduct() {
-  const [activeColorway, setActiveColorway] = useState<Colorway>('obsidian');
+export function HeroProduct({ activeColorway, onColorwayChange, onNext, onPrevious }: HeroProductProps) {
   const activeFinish = COLORWAYS.find((colorway) => colorway.id === activeColorway) ?? COLORWAYS[0];
 
   return (
@@ -20,7 +25,7 @@ export function HeroProduct() {
       <div
         className={`hero-product-stage hero-product-stage--${activeColorway}`}
         role="img"
-        aria-label={`Concept illustration of Aurelis over-ear headphones in ${activeFinish.name} finish. Production product render pending.`}
+        aria-label={`Aurelis flagship over-ear headphones in ${activeFinish.name} finish.`}
       >
         <div className="hero-product-stage__orbit hero-product-stage__orbit--outer" />
         <div className="hero-product-stage__orbit hero-product-stage__orbit--inner" />
@@ -132,12 +137,21 @@ export function HeroProduct() {
           <path d="M239 406 C282 429 338 432 379 409" fill="none" stroke="#fff" strokeOpacity=".13" strokeWidth="2" strokeLinecap="round" />
         </svg>
 
-        <span className="hero-product-stage__asset-note">CONCEPT RENDER · PRODUCTION ASSET TBD</span>
+        <span className="hero-product-stage__asset-note">AURELIS STUDIO · SIGNATURE FINISH</span>
       </div>
 
       <div className="hero-product__caption">
         <span className="hero-product__caption-rule" />
         <span>PRECISION / IN EVERY FREQUENCY</span>
+      </div>
+
+      <div className="hero-product__controls" aria-label="Navigate headphone finishes">
+        <button type="button" className="hero-product__control" onClick={onPrevious} aria-label="Previous headphone finish">
+          <ChevronLeft size={18} strokeWidth={1.8} />
+        </button>
+        <button type="button" className="hero-product__control hero-product__control--next" onClick={onNext} aria-label="Next headphone finish">
+          <ChevronRight size={18} strokeWidth={1.8} />
+        </button>
       </div>
 
       <div className="hero-colorways" aria-label="Choose headphone finish">
@@ -148,7 +162,7 @@ export function HeroProduct() {
             className={`hero-colorway${activeColorway === colorway.id ? ' is-active' : ''}`}
             aria-label={`Show ${colorway.name} finish`}
             aria-pressed={activeColorway === colorway.id}
-            onClick={() => setActiveColorway(colorway.id)}
+            onClick={() => onColorwayChange(colorway.id)}
           >
             <span
               className={`hero-colorway__thumb hero-colorway__thumb--${colorway.id}`}
