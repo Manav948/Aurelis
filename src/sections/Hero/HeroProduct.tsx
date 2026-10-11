@@ -4,12 +4,10 @@ export type Colorway = 'obsidian' | 'titanium';
 
 interface HeroProductProps {
   readonly activeColorway: Colorway;
-  readonly onColorwayChange: (colorway: HeroColorway) => void;
-  readonly onNext: () => void;
-  readonly onPrevious: () => void;
+  readonly onChange: (index: number) => void;
 }
 
-const COLORWAYS: { id: HeroColorway; name: string; finish: string }[] = [
+const COLORWAYS: { id: Colorway; name: string; finish: string }[] = [
   { id: 'obsidian', name: 'Obsidian Black', finish: '#24262c' },
   { id: 'titanium', name: 'Brushed Titanium', finish: '#c6c9cd' },
 ];
