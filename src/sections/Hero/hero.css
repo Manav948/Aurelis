@@ -674,3 +674,218 @@
     scroll-behavior: auto !important;
   }
 }
+
+
+/* Reference-led hero refinement */
+.hero-section {
+  min-height: min(780px, calc(100svh - 104px));
+  background:
+    radial-gradient(ellipse at 73% 39%, rgba(160, 166, 177, 0.2), transparent 38%),
+    linear-gradient(180deg, #0b0c0f 0%, #17191e 70%, #34373d 100%);
+}
+
+.hero-layout {
+  min-height: min(780px, calc(100svh - 104px));
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  padding-top: clamp(32px, 3.6vw, 56px);
+  padding-bottom: clamp(34px, 4vw, 60px);
+}
+
+.hero-headline {
+  font-size: clamp(3rem, 5.15vw, 5.45rem);
+  letter-spacing: -0.07em;
+  line-height: 0.96;
+}
+
+.hero-eyebrow {
+  margin-bottom: clamp(22px, 2.4vw, 32px);
+}
+
+.hero-description {
+  max-width: 350px;
+  margin-top: clamp(20px, 2.4vw, 30px);
+  line-height: 1.65;
+}
+
+.hero-meta {
+  margin-top: clamp(28px, 3.4vw, 44px);
+}
+
+.hero-product {
+  max-width: 760px;
+  padding-bottom: 78px;
+}
+
+.hero-product-stage {
+  aspect-ratio: 1.12 / 1;
+  transition: filter 450ms ease;
+}
+
+.hero-product-stage--titanium .hero-headphone-art {
+  filter: drop-shadow(0 28px 30px rgba(0, 0, 0, 0.28)) brightness(1.12) saturate(0.82);
+}
+
+.hero-product-stage--obsidian .hero-headphone-art {
+  filter: drop-shadow(0 28px 30px rgba(0, 0, 0, 0.3)) contrast(1.06);
+}
+
+.hero-product-stage__orbit--outer {
+  width: 84%;
+  border-color: rgba(226, 229, 235, 0.08);
+}
+
+.hero-product-stage__orbit--inner {
+  width: 69%;
+  border-color: rgba(226, 229, 235, 0.055);
+}
+
+.hero-colorways {
+  right: 2%;
+  bottom: 2px;
+  gap: 14px;
+}
+
+.hero-colorway__thumb {
+  width: 48px;
+  height: 48px;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.hero-colorway__label {
+  font-size: 8px;
+}
+
+.hero-visual__controls {
+  position: absolute;
+  right: 0;
+  bottom: 92px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.hero-visual__finish-note {
+  color: rgba(226, 229, 235, 0.55);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  text-align: right;
+}
+
+.hero-visual__arrows {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-visual__arrows button {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.035);
+  color: #f4f5f6;
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.hero-visual__arrows button:last-child {
+  border-color: var(--color-accent-lime);
+  background: var(--color-accent-lime);
+  color: #10120b;
+}
+
+.hero-visual__arrows button:hover {
+  transform: translateY(-2px);
+}
+
+.hero-visual__arrows button:focus-visible {
+  outline: 2px solid var(--color-accent-lime);
+  outline-offset: 4px;
+}
+
+.hero-visual__counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #d9dce1;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+}
+
+.hero-visual__counter i {
+  display: block;
+  width: 12px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.hero-scroll-cue {
+  align-self: flex-start;
+}
+
+@media (max-width: 1100px) {
+  .hero-headline {
+    font-size: clamp(2.8rem, 5.4vw, 4.4rem);
+  }
+  .hero-visual__controls {
+    bottom: 94px;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-layout {
+    min-height: auto;
+    padding-top: 44px;
+    padding-bottom: 38px;
+  }
+  .hero-headline {
+    font-size: clamp(3rem, 10.6vw, 4.6rem);
+  }
+  .hero-product {
+    padding-bottom: 92px;
+  }
+  .hero-visual__controls {
+    right: 0;
+    bottom: 105px;
+    gap: 8px;
+  }
+  .hero-visual__finish-note {
+    max-width: 110px;
+    font-size: 6px;
+  }
+  .hero-visual__arrows button {
+    width: 34px;
+    height: 34px;
+  }
+  .hero-colorways {
+    left: 0;
+    right: auto;
+    bottom: 0;
+  }
+  .hero-scroll-cue {
+    margin-top: 6px;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-headline {
+    font-size: clamp(2.7rem, 10.2vw, 3.15rem);
+  }
+  .hero-visual__controls {
+    bottom: 102px;
+  }
+  .hero-visual__finish-note {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-product-stage,
+  .hero-visual__arrows button {
+    transition: none;
+  }
+}
