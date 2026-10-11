@@ -889,3 +889,122 @@
     transition: none;
   }
 }
+
+
+/* Video-inspired cinematic product reveal */
+.hero-section {
+  background:
+    radial-gradient(ellipse at 72% 84%, rgba(228, 232, 233, .25) 0%, rgba(155, 162, 166, .1) 20%, transparent 46%),
+    linear-gradient(180deg, #090a0c 0%, #15171b 70%, #25292d 100%);
+}
+.hero-section::after {
+  height: 25%;
+  background: linear-gradient(180deg, transparent 0%, rgba(220, 225, 226, .08) 70%, rgba(240, 242, 242, .14) 100%);
+}
+.hero-intro-glow {
+  position: absolute;
+  z-index: -1;
+  right: 7%;
+  bottom: -18%;
+  width: 62%;
+  height: 54%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(241, 244, 244, .32) 0%, rgba(182, 190, 192, .14) 32%, transparent 70%);
+  filter: blur(28px);
+  pointer-events: none;
+}
+.hero-headphone-art {
+  object-fit: contain;
+  max-height: 620px;
+  transform: rotate(-7deg) scale(1.03);
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 30px 32px rgba(0,0,0,.5)) contrast(1.08) saturate(.72);
+  transition: filter .55s ease, transform .7s cubic-bezier(.2,.7,.2,1);
+}
+.hero-product-stage--titanium .hero-headphone-art {
+  filter: drop-shadow(0 30px 32px rgba(0,0,0,.45)) brightness(1.28) saturate(.55) contrast(1.02);
+  transform: rotate(-4deg) scale(1.03);
+}
+.hero-product-stage--obsidian .hero-headphone-art {
+  filter: drop-shadow(0 30px 32px rgba(0,0,0,.5)) contrast(1.12) saturate(.68);
+}
+.hero-product-stage__light-pool {
+  position: absolute;
+  z-index: -1;
+  inset: 25% 9% 0;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(245,247,247,.35), rgba(193,200,201,.12) 42%, transparent 72%);
+  filter: blur(26px);
+}
+.hero-product-stage__asset-note { z-index: 4; }
+.hero-product-stage--image-error .hero-product-stage__light-pool::after {
+  content: 'HEADPHONE IMAGE COULD NOT LOAD';
+  position: absolute;
+  inset: 45% 0 auto;
+  color: #9da1ab;
+  text-align: center;
+  font: 9px 'JetBrains Mono', monospace;
+  letter-spacing: .12em;
+}
+.hero-visual__controls {
+  position: absolute;
+  right: 0;
+  bottom: 93px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-visual__finish-note {
+  max-width: 190px;
+  color: rgba(226,229,235,.56);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  letter-spacing: .1em;
+  text-align: right;
+}
+.hero-visual__arrows { display: flex; align-items: center; gap: 8px; }
+.hero-visual__arrows button {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 50%;
+  background: rgba(255,255,255,.035);
+  color: #f4f5f6;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease, color .2s ease;
+}
+.hero-visual__arrows button:last-child {
+  border-color: var(--color-accent-lime);
+  background: var(--color-accent-lime);
+  color: #10120b;
+}
+.hero-visual__arrows button:hover { transform: translateY(-2px); }
+.hero-visual__arrows button:focus-visible {
+  outline: 2px solid var(--color-accent-lime);
+  outline-offset: 4px;
+}
+.hero-visual__counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #d9dce1;
+  font: 9px 'JetBrains Mono', monospace;
+}
+.hero-visual__counter i { width: 12px; height: 1px; background: rgba(255,255,255,.35); }
+.hero-product-stage__orbit--outer { border-color: rgba(235,238,240,.11); }
+.hero-product-stage__orbit--inner { border-color: rgba(235,238,240,.06); }
+.hero-colorway__thumb { width: 47px; height: 47px; }
+.hero-colorway__label { font-size: 8px; }
+@media (max-width: 760px) {
+  .hero-intro-glow { right: -12%; bottom: -8%; width: 115%; height: 38%; }
+  .hero-headphone-art { max-height: 410px; }
+  .hero-visual__controls { right: 0; bottom: 104px; gap: 7px; }
+  .hero-visual__finish-note { display: none; }
+  .hero-visual__arrows button { width: 32px; height: 32px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-headphone-art, .hero-visual__arrows button { transition: none; }
+}
