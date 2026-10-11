@@ -1,5 +1,6 @@
 /**
- * Atomic and composite UI components will be exported here as they are developed
- * in accordance with docs/DESIGN.md and docs/TASKS.md.
+ * Shared UI component exports.
  */
-export {};
+export { AnnouncementBar, Navbar } from './Header';
+export { PillButton } from './Button';
+export type { PillButtonProps } from './Button';
