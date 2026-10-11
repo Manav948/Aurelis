@@ -95,7 +95,7 @@ export function Hero() {
           </p>
 
           <div id="hero-title" className="hero-copy__title-wrap">
-            <HeroHeadline />
+            <HeroHeadline colorway={activeColorway.id} />
           </div>
 
           <p className="hero-description hero-copy__reveal" key={activeColorway.id}>
