@@ -7,19 +7,17 @@ import { gsap } from '@/lib/gsap';
 import { HeroHeadline } from './HeroHeadline';
 import { HeroProduct, type Colorway } from './HeroProduct';
 
-const COLORWAYS: { id: Colorway; name: string; eyebrow: string; description: string; note: string }[] = [
+const COLORWAYS: { id: Colorway; eyebrow: string; description: string; note: string }[] = [
   {
     id: 'obsidian',
-    name: 'Obsidian Black',
     eyebrow: '01 / OBSIDIAN SERIES',
-    description: 'Deep, immersive sound. Sculpted in shadow. Made for the moments when every detail matters.',
+    description: 'Precision-crafted sound. Sculpted in shadow. A listening experience designed to bring every detail into focus.',
     note: 'MATTE GRAPHITE · DARK CHROME',
   },
   {
     id: 'titanium',
-    name: 'Brushed Titanium',
     eyebrow: '02 / TITANIUM SERIES',
-    description: 'Precision in every curve. A luminous titanium finish with a presence that feels as considered as it sounds.',
+    description: 'A luminous metal finish, tuned for clarity. Considered in every curve and made for the moments that matter.',
     note: 'BRUSHED TITANIUM · SATIN SILVER',
   },
 ];
@@ -27,57 +25,59 @@ const COLORWAYS: { id: Colorway; name: string; eyebrow: string; description: str
 export function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const copyRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
   const activeColorway = COLORWAYS[activeIndex];
 
   useGSAPContext(() => {
     if (prefersReducedMotion) return;
-    gsap.from('.hero-headline__line', {
-      yPercent: 115,
-      opacity: 0,
-      duration: 0.9,
-      stagger: 0.12,
-      ease: 'power3.out',
-      delay: 0.12,
-    });
-    gsap.from('.hero-copy__reveal', {
-      y: 20,
-      opacity: 0,
-      duration: 0.7,
-      stagger: 0.12,
-      ease: 'power2.out',
-      delay: 0.42,
-    });
-    gsap.from('.hero-product-stage', {
-      y: 28,
-      scale: 1.045,
-      opacity: 0,
-      duration: 1.1,
-      ease: 'power3.out',
-      delay: 0.2,
+
+    const timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    timeline
+      .fromTo('.hero-visual__index', { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.55 }, 0.25)
+      .fromTo('.hero-eyebrow', { opacity: 0, y: 16, filter: 'blur(7px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.65 }, 0.5)
+      .fromTo('.hero-headline__line', { yPercent: 115, opacity: 0, filter: 'blur(8px)' }, {
+        yPercent: 0, opacity: 1, filter: 'blur(0px)', duration: 0.9, stagger: 0.13,
+      }, 0.62)
+      .fromTo('.hero-description, .hero-actions, .hero-meta', { opacity: 0, y: 18 }, {
+        opacity: 1, y: 0, duration: 0.65, stagger: 0.12,
+      }, 1.1)
+      .fromTo('.hero-product-stage', { opacity: 0, y: 52, scale: 0.88, filter: 'blur(20px)' }, {
+        opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1.35,
+      }, 0.72)
+      .fromTo('.hero-colorways, .hero-product__caption, .hero-scroll-cue, .hero-visual__controls', {
+        opacity: 0, y: 12,
+      }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 }, 1.7);
+
+    gsap.to('.hero-product-stage', {
+      y: -7,
+      duration: 3.8,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+      delay: 2.4,
     });
   }, heroRef);
 
   const changeColorway = (nextIndex: number) => {
     const normalizedIndex = (nextIndex + COLORWAYS.length) % COLORWAYS.length;
     if (normalizedIndex === activeIndex) return;
+
     if (!prefersReducedMotion && copyRef.current) {
       gsap.to(copyRef.current, {
-        y: 8,
+        y: 7,
         opacity: 0,
-        duration: 0.16,
-        ease: 'power1.in',
+        duration: 0.18,
+        ease: 'power2.in',
         onComplete: () => {
           setActiveIndex(normalizedIndex);
-          gsap.fromTo(copyRef.current, { y: -8, opacity: 0 }, {
-            y: 0,
-            opacity: 1,
-            duration: 0.42,
-            ease: 'power3.out',
-            clearProps: 'all',
+          gsap.fromTo(copyRef.current, { y: -7, opacity: 0 }, {
+            y: 0, opacity: 1, duration: 0.4, ease: 'power3.out', clearProps: 'all',
           });
         },
+      });
+      gsap.fromTo('.hero-product-stage', { opacity: 0.45, scale: 0.96, filter: 'blur(8px)' }, {
+        opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.65, ease: 'power3.out',
       });
     } else {
       setActiveIndex(normalizedIndex);
@@ -87,6 +87,7 @@ export function Hero() {
   return (
     <section className="hero-section" id="home" ref={heroRef} aria-labelledby="hero-title">
       <div className="hero-section__grain" aria-hidden="true" />
+      <div className="hero-intro-glow" aria-hidden="true" />
       <div className="hero-container hero-layout">
         <div className="hero-copy" ref={copyRef} aria-live="polite">
           <p className="hero-eyebrow hero-copy__reveal">
@@ -109,13 +110,18 @@ export function Hero() {
 
           <div className="hero-meta hero-copy__reveal" aria-label="Product highlights">
             <div className="hero-meta__item">
-              <span className="hero-meta__value">01</span>
-              <span className="hero-meta__label">Acoustic precision</span>
+              <span className="hero-meta__value">40H</span>
+              <span className="hero-meta__label">Battery life</span>
             </div>
             <span className="hero-meta__divider" aria-hidden="true" />
             <div className="hero-meta__item">
-              <span className="hero-meta__value">02</span>
-              <span className="hero-meta__label">Material integrity</span>
+              <span className="hero-meta__value">ANC</span>
+              <span className="hero-meta__label">Noise cancellation</span>
+            </div>
+            <span className="hero-meta__divider" aria-hidden="true" />
+            <div className="hero-meta__item">
+              <span className="hero-meta__value">HI·FI</span>
+              <span className="hero-meta__label">Audio quality</span>
             </div>
           </div>
         </div>
