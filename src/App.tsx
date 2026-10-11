@@ -1,12 +1,16 @@
 import { AnnouncementBar, Navbar } from '@/components/Header';
+import { Hero } from '@/sections/Hero';
 import '@/components/Header/header.css';
+import '@/sections/Hero/hero.css';
 
 export function App() {
   return (
     <>
       <AnnouncementBar />
       <Navbar />
-      <main id="home" className="global-shell-preview" aria-label="Aurelis homepage" />
+      <main aria-label="Aurelis homepage">
+        <Hero />
+      </main>
     </>
   );
 }
