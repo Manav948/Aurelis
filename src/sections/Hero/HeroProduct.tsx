@@ -1,9 +1,9 @@
-import { Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Check } from 'lucide-react';
 
-export type HeroColorway = 'obsidian' | 'titanium';
+export type Colorway = 'obsidian' | 'titanium';
 
 interface HeroProductProps {
-  readonly activeColorway: HeroColorway;
+  readonly activeColorway: Colorway;
   readonly onColorwayChange: (colorway: HeroColorway) => void;
   readonly onNext: () => void;
   readonly onPrevious: () => void;
@@ -14,7 +14,7 @@ const COLORWAYS: { id: HeroColorway; name: string; finish: string }[] = [
   { id: 'titanium', name: 'Brushed Titanium', finish: '#c6c9cd' },
 ];
 
-export function HeroProduct({ activeColorway, onColorwayChange, onNext, onPrevious }: HeroProductProps) {
+export function HeroProduct({ activeColorway, onChange }: HeroProductProps) {
   const activeFinish = COLORWAYS.find((colorway) => colorway.id === activeColorway) ?? COLORWAYS[0];
 
   return (
@@ -162,7 +162,7 @@ export function HeroProduct({ activeColorway, onColorwayChange, onNext, onPrevio
             className={`hero-colorway${activeColorway === colorway.id ? ' is-active' : ''}`}
             aria-label={`Show ${colorway.name} finish`}
             aria-pressed={activeColorway === colorway.id}
-            onClick={() => onColorwayChange(colorway.id)}
+            onClick={() => onChange(index)}
           >
             <span
               className={`hero-colorway__thumb hero-colorway__thumb--${colorway.id}`}
