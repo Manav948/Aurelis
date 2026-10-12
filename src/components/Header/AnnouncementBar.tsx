@@ -5,18 +5,11 @@ export function AnnouncementBar() {
     <div className="announcement-bar">
       <div className="header-container announcement-bar__inner">
         <p className="announcement-bar__copy">
-          Announcement copy <span>[TBD]</span>
+          <span className="announcement-bar__spark" aria-hidden="true">✳</span>
+          Complimentary worldwide express delivery on flagship orders
         </p>
-
-        <button
-          className="announcement-bar__locale"
-          type="button"
-          aria-label="Currency and language: US dollars, English"
-          title="Currency and language selector — display placeholder"
-        >
-          <span aria-hidden="true">$ USD</span>
-          <span className="announcement-bar__locale-divider" aria-hidden="true" />
-          <span aria-hidden="true">EN</span>
+        <button className="announcement-bar__locale" type="button" aria-label="Currency and language: US dollars, English">
+          <span>$ USD</span><span className="announcement-bar__locale-divider" /><span>EN</span>
           <ChevronDown size={12} strokeWidth={1.8} aria-hidden="true" />
         </button>
       </div>
