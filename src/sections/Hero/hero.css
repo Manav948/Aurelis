@@ -1111,3 +1111,98 @@
  .hero-colorway__thumb { width:43px; height:43px; }
 }
 @media(prefers-reduced-motion:reduce) { .hero-product-stage,.hero-headphone-art { transition:none; } }
+
+/* Reference-match pass: correct proportions, hierarchy and continuous dark header. */
+:root {
+  --color-accent-lime: #d1dc91;
+}
+.announcement-bar {
+  background: #11120f !important;
+  color: #c9c9be !important;
+  border-bottom: 1px solid rgba(255,255,255,.08) !important;
+}
+.announcement-bar__copy,
+.announcement-bar__copy span:not(.announcement-bar__spark),
+.announcement-bar__locale { color: #c9c9be !important; }
+.announcement-bar__spark { color: #d1dc91 !important; }
+.announcement-bar__locale-divider { background: rgba(255,255,255,.25) !important; }
+.site-navbar,
+.site-navbar.is-scrolled {
+  background: rgba(17,18,15,.97) !important;
+  color: #f4f3ee !important;
+  border-bottom: 1px solid rgba(255,255,255,.1) !important;
+  box-shadow: none;
+}
+.desktop-nav__link { color: #d0d0c6 !important; }
+.desktop-nav__number { color: #858679 !important; }
+.brandmark { color: #f4f3ee !important; }
+.brandmark__symbol { border-color: #77796b !important; }
+.brandmark__word span { color: #d1dc91 !important; }
+.header-icon-button { color: #f4f3ee !important; }
+.header-icon-button:hover { background: rgba(255,255,255,.08) !important; }
+.header-cart-count { background: #d1dc91 !important; color: #171812 !important; }
+.header-shop-link { background: #d1dc91 !important; color: #171812 !important; }
+.mobile-nav { background: #171814 !important; }
+.mobile-nav__link { color: #f4f3ee !important; }
+
+.hero-section {
+  min-height: max(690px, calc(100svh - 112px)) !important;
+  background:
+    radial-gradient(ellipse at 73% 60%, rgba(198,201,182,.18), transparent 32%),
+    linear-gradient(180deg, #11120f 0%, #171813 65%, #34362e 100%) !important;
+}
+.hero-layout {
+  min-height: max(690px, calc(100svh - 112px)) !important;
+  grid-template-columns: minmax(0, 1.03fr) minmax(0, .97fr) !important;
+  gap: clamp(18px, 2.4vw, 42px) !important;
+  padding-top: clamp(36px, 4vw, 60px) !important;
+  padding-bottom: clamp(30px, 3.5vw, 52px) !important;
+}
+.hero-headline {
+  width: 100%;
+  font-size: clamp(3.1rem, 5.05vw, 6.05rem) !important;
+  letter-spacing: -.075em !important;
+  line-height: .91 !important;
+  overflow-wrap: normal;
+}
+.hero-headline__line {
+  white-space: nowrap !important;
+}
+.hero-description {
+  max-width: 390px !important;
+  margin-top: clamp(22px, 2.4vw, 34px) !important;
+  color: #b8b9ae !important;
+}
+.hero-actions { margin-top: 24px !important; }
+.hero-meta { display: none !important; }
+.hero-visual { padding-top: 24px !important; }
+.hero-product { max-width: 790px !important; }
+.hero-product-stage { aspect-ratio: 1 / 1 !important; }
+.hero-headphone-art {
+  object-fit: contain !important;
+  mix-blend-mode: normal !important;
+  filter: drop-shadow(0 28px 38px rgba(0,0,0,.48)) !important;
+}
+.hero-product-stage__orbit--outer { width: 86% !important; }
+.hero-product-stage__orbit--inner { width: 68% !important; }
+.hero-visual__index { color: #898a7e !important; }
+.hero-colorways { gap: 10px !important; }
+.hero-colorway__thumb { width: 46px !important; height: 46px !important; }
+@media (min-width: 1500px) {
+  .hero-container { width: min(calc(100% - 96px), 1660px) !important; }
+  .hero-headline { font-size: clamp(5rem, 5vw, 6.1rem) !important; }
+}
+@media (max-width: 1100px) {
+  .hero-layout { grid-template-columns: minmax(0, 1fr) minmax(0, .9fr) !important; }
+  .hero-headline { font-size: clamp(3rem, 5.4vw, 4.8rem) !important; }
+}
+@media (max-width: 760px) {
+  .hero-section, .hero-layout { min-height: auto !important; }
+  .hero-layout { grid-template-columns: minmax(0,1fr) !important; gap: 12px !important; padding-top: 40px !important; }
+  .hero-headline { font-size: clamp(2.8rem, 10vw, 4.5rem) !important; }
+  .hero-visual { margin-top: 14px !important; }
+  .hero-product { max-width: 620px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-product-stage, .hero-headphone-art { transition: none !important; }
+}
