@@ -13,7 +13,7 @@ const COLORWAYS: { id: Colorway; name: string; finish: string }[] = [
 ];
 
 // Remote transparent product cutout; replace this URL with a licensed product render when ready.
-const HEADPHONE_IMAGE = 'https://pngimg.com/uploads/headphones/headphones_PNG7645.png';
+const HEADPHONE_IMAGES: Record<Colorway, string> = {\n  obsidian: 'https://pngimg.com/uploads/headphones/headphones_PNG7645.png',\n  titanium: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1400&q=90',\n};
 
 export function HeroProduct({ activeColorway, onChange }: HeroProductProps) {
   const activeFinish = COLORWAYS.find((colorway) => colorway.id === activeColorway) ?? COLORWAYS[0];
@@ -34,7 +34,7 @@ export function HeroProduct({ activeColorway, onChange }: HeroProductProps) {
         <img
           key={activeColorway}
           className="hero-headphone-art"
-          src={HEADPHONE_IMAGE}
+          src={HEADPHONE_IMAGES[activeColorway]}
           alt={activeFinish.name + ' wireless over-ear headphones'}
           loading="eager"
           onError={(event) => {
